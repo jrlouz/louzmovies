@@ -67,6 +67,8 @@ async function getMovieDetails(movieId) {
                 <p><strong>Diretor:</strong> ${getDirector(creditsData.crew)}</p>
                 <p><strong>Elenco:</strong> ${getCast(creditsData.cast)}</p>
                 <p><strong>Avaliação:</strong> ${data.vote_average}</p>
+                <button onclick="saveFavoriteMovie(${movieId})">Salvar como Favorito</button>
+                <button onclick="deleteFavoriteMovie(${movieId})">Remover dos Favoritos</button>
             </div>
         </div>
     `;
@@ -100,3 +102,63 @@ function getDirector(crew) {
 function getCast(cast) {
     return cast.slice(0, 5).map(member => member.name).join(', ');
 }
+
+// Métodos POST, PUT e DELETE
+
+async function saveFavoriteMovie(movieId) {
+    const movieData = await getMovieDetailsForFavorites(movieId); // Função para obter dados necessários para favoritos
+    const response = await fetch('https://api.seuservidor.com/favorites', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(movieData)
+    });
+    const data = await response.json();
+    alert('Filme salvo como favorito!');
+}
+
+async function deleteFavoriteMovie(movieId) {
+    const response = await fetch(`https://api.seuservidor.com/favorites/${movieId}`, {
+        method: 'DELETE'
+    });
+    const data = await response.json();
+    alert('Filme removido dos favoritos!');
+}
+
+async function updateUserProfile(userId, userProfile) {
+    const response = await fetch(`https://api.seuservidor.com/users/${userId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userProfile)
+    });
+    const data = await response.json();
+    alert('Perfil atualizado com sucesso!');
+}
+
+async function getMovieDetailsForFavorites(movieId) {
+    const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=pt-BR`);
+    const data = await response.json();
+    return {
+        id: data.id,
+        title: data.title,
+        overview: data.overview,
+        poster_path: data.poster_path,
+        release_date: data.release_date
+    };
+}
+
+document.getElementById('loginButton').addEventListener('click', () => {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    if (!username || !password) {
+        alert('Por favor, preencha usuário e senha para fazer login.');
+        return;
+    }
+
+    // Simulação de login (não levará a lugar nenhum por enquanto)
+    alert('Login realizado com sucesso!');
+});
