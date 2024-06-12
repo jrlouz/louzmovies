@@ -39,7 +39,6 @@ function displayMovieResults(movies) {
         });
     });
 
-    // Adiciona evento de clique para voltar à tela inicial
     const logo = document.querySelector('.logo');
     const title = document.querySelector('h1');
 
@@ -56,7 +55,6 @@ async function getMovieDetails(movieId) {
     const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=pt-BR`);
     const data = await response.json();
 
-    // Obtendo informações sobre elenco e equipe
     const creditsResponse = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}&language=pt-BR`);
     const creditsData = await creditsResponse.json();
 
