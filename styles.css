@@ -205,24 +205,34 @@ h1 {
     color: #bbb;
 }
 
+
 /* Estilos responsivos */
 @media (max-width: 768px) {
-    .container {
-        margin: 120px 20px 20px 20px;
+    .menu {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         padding: 10px;
     }
 
-    .header {
-        flex-direction: column;
-        align-items: flex-start;
+    .logo-container {
+        margin-bottom: 10px;
     }
 
     .search-bar {
-        flex-direction: column;
-        width: 100%;
+        margin: 10px 0;
     }
 
-    .search-bar input, .search-bar button {
+    .search-bar input {
+        width: calc(100% - 80px); /* Ajuste para o ícone do botão de pesquisa */
+    }
+
+    .login-form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .login-form input, .login-form button {
         width: 100%;
         margin: 5px 0;
     }
@@ -245,17 +255,5 @@ h1 {
     .recommendations-container .movie img {
         width: 100%;
         margin-bottom: 10px;
-    }
-
-    .login-form {
-        margin-left: 0;
-        margin-top: 10px;
-        flex-direction: column;
-        align-items: flex-end;
-    }
-
-    .login-form input, .login-form button {
-        width: auto;
-        margin: 5px 0;
     }
 }
